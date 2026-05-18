@@ -36,7 +36,7 @@ function buildRagClient(): AxiosInstance {
   });
 
   instance.interceptors.request.use((config) => {
-    config.headers['Authorization'] = `Bearer ${process.env.RASA_SERVICE_TOKEN ?? ''}`;
+    config.headers['Authorization'] = `Bearer ${process.env.RAG_SERVICE_TOKEN ?? ''}`;
     return config;
   });
 

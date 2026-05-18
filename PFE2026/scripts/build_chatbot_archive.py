@@ -213,7 +213,7 @@ logger = logging.getLogger(__name__)
 
 RAG_URL   = os.getenv("RAG_SERVICE_URL", "http://localhost:8001")
 DB_URL    = os.getenv("DATABASE_URL", "postgresql://lacuna:lacuna@localhost:5432/lacuna")
-RAG_TOKEN = os.getenv("RASA_SERVICE_TOKEN", "")   # matches Express RASA_SERVICE_TOKEN
+RAG_TOKEN = os.getenv("RAG_SERVICE_TOKEN", "")   # matches Express RAG_SERVICE_TOKEN
 
 
 # ── Postgres helper ───────────────────────────────────────────────────────────
@@ -703,7 +703,7 @@ OLLAMA_URL=http://localhost:11434
 OLLAMA_MODEL=mistral:7b
 RAG_SERVICE_URL=http://localhost:8001
 RASA_URL=http://localhost:5005
-RASA_SERVICE_TOKEN=dev-secret
+RAG_SERVICE_TOKEN=dev-secret
 '''
 write_file(".env.example", env_example)
 

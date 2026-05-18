@@ -33,7 +33,7 @@ initSentry(app);
 
 // ── 1. CORS ────────────────────────────────────────────────────────────────
 app.use(cors({
-  origin: "http://localhost:3001",
+  origin: process.env.FRONTEND_URL || "http://localhost:3001",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -109,7 +109,20 @@ if (eventsQueue) {
   const serverAdapter = new ExpressAdapter();
   serverAdapter.setBasePath('/admin/queues');
   createBullBoard({ queues: [new BullMQAdapter(eventsQueue)], serverAdapter });
-  app.use('/admin/queues', serverAdapter.getRouter());
+  app.use('/admin/queues', (req, res, next) => {
+  const auth = req.headers['authorization'];
+  if (!auth || !auth.startsWith('Basic ')) {
+    res.setHeader('WWW-Authenticate', 'Basic realm="BullMQ Dashboard"');
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  const [user, pass] = Buffer.from(auth.slice(6), 'base64').toString().split(':');
+  if (user !== 'admin' || pass !== (process.env.RAG_SERVICE_TOKEN ?? '')) {
+    res.status(403).json({ error: 'Forbidden' });
+    return;
+  }
+  next();
+}, serverAdapter.getRouter());
 }
 
 // ── 9. OpenAPI docs ────────────────────────────────────────────────────────
@@ -128,7 +141,7 @@ app.use('/api/products', (req: Request, _res: Response, next) => {
         import('axios').then(({ default: ax }) => {
           ax.post(`${RAG_SERVICE_URL}/sync`, {}, {
             timeout: 120_000,
-            headers: { Authorization: `Bearer ${process.env.RASA_SERVICE_TOKEN ?? ''}` },
+            headers: { Authorization: `Bearer ${process.env.RAG_SERVICE_TOKEN ?? ''}` },
           })
             .then(() => console.log('[RAG] Auto-sync triggered'))
             .catch((e: Error) => console.warn('[RAG] Auto-sync failed:', e.message));
@@ -164,6 +177,7 @@ if (process.env.NODE_ENV !== 'test') {
     }
   });
 }
+
 
 
 

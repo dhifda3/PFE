@@ -1,1 +1,0 @@
-import pg from 'pg'; const client = new pg.Client('postgresql://postgres:admin@localhost:5432/cosmetica_db'); await client.connect(); const r = await client.query('SELECT id, user_id, status, total_amount, created_at FROM orders ORDER BY created_at DESC LIMIT 10'); console.table(r.rows); await client.end();

@@ -1,9 +1,9 @@
-﻿import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 
 export function serviceAuthMiddleware(req: Request, res: Response, next: NextFunction): void {
   const authHeader = (req.headers["authorization"] ?? "") as string;
   const provided   = authHeader.startsWith("Bearer ") ? authHeader.slice(7).trim() : "";
-  const expected   = process.env.RASA_SERVICE_TOKEN ?? "";
+  const expected   = process.env.RAG_SERVICE_TOKEN ?? "";
 
   if (!expected) {
     res.status(500).json({ error: "Server misconfiguration: service token not configured." });

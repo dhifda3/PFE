@@ -1,4 +1,4 @@
-﻿import { Service } from "typedi";
+import { Service } from "typedi";
 import { db } from "../../../infrastructure/db/index.js";
 import { products } from "../../../infrastructure/db/schema/products.js";
 import { user } from "../../../infrastructure/db/schema/auth.js";
@@ -55,7 +55,7 @@ export class GetRecommendationsUseCase {
         const query = [skinConcerns, skinType, hairType].filter(Boolean).join(" ");
         if (query) {
           const r = await fetch(`${RAG_URL}/search?q=${encodeURIComponent(query)}&limit=6`,
-            { signal: AbortSignal.timeout(3000), headers: { Authorization: `Bearer ${process.env.RASA_SERVICE_TOKEN ?? ""}` } });
+            { signal: AbortSignal.timeout(3000), headers: { Authorization: `Bearer ${process.env.RAG_SERVICE_TOKEN ?? ""}` } });
           if (r.ok) {
             const data = await r.json() as { results: { id: string }[] };
             data.results.forEach(item => item.id && ragBoostIds.add(item.id));
