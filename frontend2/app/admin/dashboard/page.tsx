@@ -30,7 +30,7 @@ function StatPill({ l, value, warn }: { l: string; value: string | number; warn?
   return (
     <div style={{ background:D.panel, border:`1px solid ${warn?"rgba(255,80,80,0.3)":D.border}`, borderRadius:4, padding:"1rem 1.25rem", display:"flex", flexDirection:"column", gap:"0.4rem" }}>
       <span style={{ fontFamily:D.mono, fontSize:"1.5rem", fontWeight:700, color:warn?D.red:D.orange, lineHeight:1 }}>{value}</span>
-      <span style={{ fontFamily:D.font, fontSize:"0.45rem", letterSpacing:"0.18em", textTransform:"uppercase" as const, color:D.dim }}>{l}</span>
+      <span style={{ fontFamily:D.font, fontSize:"0.7rem", letterSpacing:"0.18em", textTransform:"uppercase" as const, color:D.dim }}>{l}</span>
     </div>
   );
 }
@@ -57,17 +57,17 @@ export default function AdminDashboardPage() {
     <div style={{ maxWidth:900 }}>
       <div style={{ marginBottom:"2.5rem" }}>
         <p style={{ fontFamily:D.font, fontSize:"1.1rem", letterSpacing:"0.25em", fontWeight:700, color:D.text, marginBottom:"0.4rem" }}>Admin Dashboard</p>
-        <p style={{ fontFamily:D.font, fontSize:"0.48rem", letterSpacing:"0.18em", color:D.dim }}>Welcome. Use the sidebar to manage users, products, and monitor the chatbot.</p>
+        <p style={{ fontFamily:D.font, fontSize:"0.72rem", letterSpacing:"0.18em", color:D.dim }}>Welcome. Use the sidebar to manage users, products, and monitor the chatbot.</p>
       </div>
 
       <section style={{ marginBottom:"2.5rem" }}>
         <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"1rem" }}>
           <div style={{ display:"flex", alignItems:"center", gap:"0.6rem" }}>
             <MessageSquare size={14} color={D.orange} />
-            <span style={{ fontFamily:D.font, fontSize:"0.55rem", letterSpacing:"0.15em", color:D.muted }}>Chatbot · last 24h</span>
+            <span style={{ fontFamily:D.font, fontSize:"0.78rem", letterSpacing:"0.15em", color:D.muted }}>Chatbot · last 24h</span>
             <span style={{ width:6, height:6, borderRadius:"50%", background:D.green, boxShadow:`0 0 6px ${D.green}`, display:"inline-block" }} />
           </div>
-          <Link href="/admin/chat" style={{ display:"flex", alignItems:"center", gap:"0.3rem", fontFamily:D.font, fontSize:"0.45rem", letterSpacing:"0.15em", color:D.orange, textDecoration:"none" }}>
+          <Link href="/admin/chat" style={{ display:"flex", alignItems:"center", gap:"0.3rem", fontFamily:D.font, fontSize:"0.7rem", letterSpacing:"0.15em", color:D.orange, textDecoration:"none" }}>
             Full monitor <ArrowRight size={10} />
           </Link>
         </div>
@@ -80,21 +80,21 @@ export default function AdminDashboardPage() {
             <StatPill l="Negative feedback" value={`${health.negativeFeedbackRate.toFixed(1)}%`} warn={health.negativeFeedbackRate>20} />
           </div>
         ) : (
-          <p style={{ fontFamily:D.font, fontSize:"0.45rem", letterSpacing:"0.15em", color:D.dim }}>Loading health data…</p>
+          <p style={{ fontFamily:D.font, fontSize:"0.7rem", letterSpacing:"0.15em", color:D.dim }}>Loading health data…</p>
         )}
       </section>
 
       <section>
         <div style={{ display:"flex", alignItems:"center", gap:"0.6rem", marginBottom:"1.25rem" }}>
           <Info size={13} color={D.dim} />
-          <span style={{ fontFamily:D.font, fontSize:"0.55rem", letterSpacing:"0.15em", color:D.muted }}>How to read the monitor</span>
+          <span style={{ fontFamily:D.font, fontSize:"0.7rem", letterSpacing:"0.15em", color:D.muted }}>How to read the monitor</span>
         </div>
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.75rem" }}>
           {GUIDE_CARDS.map(g => (
             <div key={g.title} style={{ background:D.panel, border:`1px solid ${D.border}`, borderRadius:4, padding:"1.25rem" }}>
               <div style={{ display:"flex", alignItems:"center", gap:"0.6rem", marginBottom:"0.75rem" }}>
                 <g.icon size={13} color={g.color} />
-                <span style={{ fontFamily:D.font, fontSize:"0.55rem", letterSpacing:"0.15em", color:D.text }}>{g.title}</span>
+                <span style={{ fontFamily:D.font, fontSize:"0.7rem", letterSpacing:"0.15em", color:D.text }}>{g.title}</span>
               </div>
               <p style={{ fontSize:"0.78rem", color:D.muted, lineHeight:1.65, margin:0 }}>{g.body}</p>
             </div>

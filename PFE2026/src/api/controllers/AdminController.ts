@@ -1,4 +1,4 @@
-
+ï»¿
 
 import { JsonController, Get, Authorized, Res, Patch, Param, Body, Delete, Post, QueryParam } from 'routing-controllers';
 import { Response } from 'express';
@@ -451,7 +451,7 @@ export class AdminController {
     for (const { msg } of recentForLang) {
       if (/[\u0600-\u06FF]/.test(msg))
         langBreakdown.arabic++;
-      else if (/[àâäéèêëîïôùûü]|bonjour|merci|sérum|peau/i.test(msg))
+      else if (/[Ã Ã¢Ã¤Ã©Ã¨ÃªÃ«Ã®Ã¯Ã´Ã¹Ã»Ã¼]|bonjour|merci|s[Ã©e]rum|peau|cheveux|produit|cr[eÃ¨]me|huile|masque|tonik|visage|solaire|hydrat|soin|beaut|recommand|pour les|je veux|avez.vous|qu[ea]|votre|notre|avec/i.test(msg))
         langBreakdown.french++;
       else if (/[a-zA-Z]/.test(msg))
         langBreakdown.english++;
@@ -501,7 +501,7 @@ export class AdminController {
     return res.json({ success: true, data: summary });
   }
 
-  // -- User chat (by userId) — backward compat --------------------------------
+  // -- User chat (by userId) ï¿½ backward compat --------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/users/:userId/chat')

@@ -24,7 +24,7 @@ function ActionBtn({ onClick, label, color, danger }: { onClick:()=>void; label:
   const [h, setH] = useState(false);
   return (
     <button onClick={onClick} onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}
-      style={{ background:h?`${danger?"rgba(255,80,80,0.1)":"rgba(255,95,31,0.1)"}`:"none", border:`1px solid ${h?color:D.border}`, cursor:"pointer", padding:"0.3rem 0.6rem", color:h?color:D.dim, fontFamily:D.font, fontSize:"0.37rem", letterSpacing:"0.12em", textTransform:"uppercase" as const, transition:"all 0.15s" }}>
+      style={{ background:h?`${danger?"rgba(255,80,80,0.1)":"rgba(255,95,31,0.1)"}`:"none", border:`1px solid ${h?color:D.border}`, cursor:"pointer", padding:"0.3rem 0.6rem", color:h?color:D.dim, fontFamily:D.font, fontSize:"0.7rem", letterSpacing:"0.12em", textTransform:"uppercase" as const, transition:"all 0.15s" }}>
       {label}
     </button>
   );
@@ -53,7 +53,7 @@ function UserCard({ user, isSuperAdmin, onPromote, onSuspend }: { user:UserData;
           </div>
           <div style={{ display:"flex",alignItems:"center",gap:"0.35rem",padding:"0.2rem 0.55rem",background:accent.secondary,border:`1px solid ${accent.border}` }}>
             {user.role==="super_admin"?<Crown size={9} style={{color:accent.primary}} />:isElevated?<Shield size={9} style={{color:accent.primary}} />:<User size={9} style={{color:accent.primary}} />}
-            <span style={{ fontFamily:D.font,fontSize:"0.38rem",letterSpacing:"0.15em",textTransform:"uppercase" as const,color:accent.primary }}>{user.role.replace("_"," ")}</span>
+            <span style={{ fontFamily:D.font,fontSize:"0.7rem",letterSpacing:"0.15em",textTransform:"uppercase" as const,color:accent.primary }}>{user.role.replace("_"," ")}</span>
           </div>
         </div>
         <p style={{ fontFamily:D.font,fontSize:"0.72rem",fontWeight:700,color:D.text,letterSpacing:"0.08em",marginBottom:"0.35rem",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap" }}>{user.name}</p>
@@ -62,7 +62,7 @@ function UserCard({ user, isSuperAdmin, onPromote, onSuspend }: { user:UserData;
         <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:"1.25rem" }}>
           <div style={{ display:"flex",alignItems:"center",gap:"0.4rem" }}>
             {user.emailVerified?<CheckCircle2 size={11} style={{color:D.green,opacity:0.8}} />:<Clock size={11} style={{color:D.red}} />}
-            <span style={{ fontFamily:D.font,fontSize:"0.37rem",letterSpacing:"0.12em",textTransform:"uppercase" as const,color:user.emailVerified?D.green:D.red }}>{user.emailVerified?"Verified":"Pending"}</span>
+            <span style={{ fontFamily:D.font,fontSize:"0.7rem",letterSpacing:"0.12em",textTransform:"uppercase" as const,color:user.emailVerified?D.green:D.red }}>{user.emailVerified?"Verified":"Pending"}</span>
           </div>
           <span style={{ fontFamily:D.mono,fontSize:"0.65rem",color:D.dim }}>{joinDate}</span>
         </div>
@@ -74,7 +74,7 @@ function UserCard({ user, isSuperAdmin, onPromote, onSuspend }: { user:UserData;
             {isSuperAdmin&&<ActionBtn onClick={()=>onSuspend(user.id)} label="Suspend" color="rgba(255,80,80,0.8)" danger />}
           </div>
           <Link href={`/admin/users/${user.id}`}
-            style={{ display:"inline-flex",alignItems:"center",gap:"0.35rem",padding:"0.35rem 0.7rem",background:D.panelB,border:`1px solid ${D.border}`,color:D.dim,fontFamily:D.font,fontSize:"0.38rem",letterSpacing:"0.12em",textTransform:"uppercase" as const,textDecoration:"none",transition:"all 0.15s" }}
+            style={{ display:"inline-flex",alignItems:"center",gap:"0.35rem",padding:"0.35rem 0.7rem",background:D.panelB,border:`1px solid ${D.border}`,color:D.dim,fontFamily:D.font,fontSize:"0.7rem",letterSpacing:"0.12em",textTransform:"uppercase" as const,textDecoration:"none",transition:"all 0.15s" }}
             onMouseEnter={e=>{(e.currentTarget as HTMLAnchorElement).style.color=D.cyan;(e.currentTarget as HTMLAnchorElement).style.borderColor=`${D.cyan}44`;(e.currentTarget as HTMLAnchorElement).style.background=`${D.cyan}08`;}}
             onMouseLeave={e=>{(e.currentTarget as HTMLAnchorElement).style.color=D.dim;(e.currentTarget as HTMLAnchorElement).style.borderColor=D.border;(e.currentTarget as HTMLAnchorElement).style.background=D.panelB;}}
           >View <ExternalLink size={9} /></Link>
@@ -126,7 +126,7 @@ export default function AdminUsersPage() {
       <div style={{ textAlign:"center" }}>
         <div style={{ width:"28px",height:"28px",border:`1px solid ${D.orange}`,borderTopColor:"transparent",borderRadius:"50%",margin:"0 auto 1rem",animation:"spin 0.8s linear infinite" }} />
         <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
-        <p style={{ fontFamily:D.font,fontSize:"0.45rem",letterSpacing:"0.3em",color:D.dim,textTransform:"uppercase" }}>Loading users</p>
+        <p style={{ fontFamily:D.font,fontSize:"0.7rem",letterSpacing:"0.3em",color:D.dim,textTransform:"uppercase" }}>Loading users</p>
       </div>
     </div>
   );
@@ -136,17 +136,17 @@ export default function AdminUsersPage() {
       <div style={{ marginBottom:"2.5rem" }}>
         <div style={{ display:"flex",alignItems:"center",gap:"0.75rem",marginBottom:"0.5rem" }}>
           <div style={{ width:"24px",height:"1px",background:D.orange }} />
-          <p style={{ fontFamily:D.font,fontSize:"0.38rem",letterSpacing:"0.35em",textTransform:"uppercase" as const,color:D.orange,opacity:0.7 }}>Admin · Access Control</p>
+          <p style={{ fontFamily:D.font,fontSize:"0.7rem",letterSpacing:"0.35em",textTransform:"uppercase" as const,color:D.orange,opacity:0.7 }}>Admin · Access Control</p>
         </div>
         <h1 style={{ fontFamily:D.font,fontSize:"1.3rem",fontWeight:700,letterSpacing:"0.2em",textTransform:"uppercase" as const,color:D.text,marginBottom:"0.3rem" }}>User Management</h1>
-        <p style={{ fontFamily:D.font,fontSize:"0.42rem",letterSpacing:"0.18em",textTransform:"uppercase" as const,color:D.dim }}>{users.length} registered accounts</p>
+        <p style={{ fontFamily:D.font,fontSize:"0.72rem",letterSpacing:"0.18em",textTransform:"uppercase" as const,color:D.dim }}>{users.length} registered accounts</p>
       </div>
 
       <div style={{ display:"flex",gap:0,marginBottom:"2rem",border:`1px solid ${D.border}` }}>
         {[{label:"Total",value:users.length,color:D.text},{label:"Admins",value:adminsCount,color:D.orange},{label:"Verified",value:verifiedCount,color:D.green},{label:"Showing",value:filtered.length,color:D.cyan}].map((stat,i)=>(
           <div key={stat.label} style={{ flex:1,padding:"1rem 1.25rem",borderRight:i<3?`1px solid ${D.border}`:"none",background:D.panelB }}>
             <p style={{ fontFamily:D.font,fontSize:"1.4rem",fontWeight:700,color:stat.color,lineHeight:1,marginBottom:"0.3rem" }}>{stat.value}</p>
-            <p style={{ fontFamily:D.font,fontSize:"0.38rem",letterSpacing:"0.2em",textTransform:"uppercase" as const,color:D.dim }}>{stat.label}</p>
+            <p style={{ fontFamily:D.font,fontSize:"0.7rem",letterSpacing:"0.2em",textTransform:"uppercase" as const,color:D.dim }}>{stat.label}</p>
           </div>
         ))}
       </div>
@@ -154,7 +154,7 @@ export default function AdminUsersPage() {
       <div style={{ display:"flex",gap:"1rem",marginBottom:"2rem",alignItems:"center",flexWrap:"wrap" as const }}>
         <div style={{ display:"flex",alignItems:"center",gap:"0.75rem",background:D.panelB,border:`1px solid ${searchFocused?`${D.orange}66`:D.border}`,padding:"0.65rem 1rem",flex:1,maxWidth:"380px",transition:"border-color 0.2s" }}>
           <Search size={13} color={searchFocused?D.orange:D.dim} style={{flexShrink:0}} />
-          <input style={{ background:"none",border:"none",outline:"none",color:D.text,fontFamily:D.font,fontSize:"0.48rem",letterSpacing:"0.12em",textTransform:"uppercase" as const,flex:1,minWidth:0 }}
+          <input style={{ background:"none",border:"none",outline:"none",color:D.text,fontFamily:D.font,fontSize:"0.78rem",letterSpacing:"0.12em",textTransform:"uppercase" as const,flex:1,minWidth:0 }}
             placeholder="Search users…" value={query} onChange={e=>setQuery(e.target.value)}
             onFocus={()=>setSearchFocused(true)} onBlur={()=>setSearchFocused(false)} />
           {query&&<button onClick={()=>setQuery("")} style={{ background:"none",border:"none",cursor:"pointer",color:D.dim,fontSize:"1rem",padding:0,lineHeight:1 }}>×</button>}
