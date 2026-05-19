@@ -1,4 +1,4 @@
-﻿
+
 
 import { JsonController, Get, Authorized, Res, Patch, Param, Body, Delete, Post, QueryParam } from 'routing-controllers';
 import { Response } from 'express';
@@ -68,7 +68,7 @@ export class AdminController {
   @Inject('IGetUserGraphUseCase')
   private getUserGraphUseCase!: GetUserGraphUseCase;
 
-  // ── Basic ──────────────────────────────────────────────────────────────────
+  // -- Basic ------------------------------------------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/ping')
@@ -76,7 +76,7 @@ export class AdminController {
     return res.json({ success: true, message: 'Admin access granted' });
   }
 
-  // ── Users ──────────────────────────────────────────────────────────────────
+  // -- Users ------------------------------------------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/users')
@@ -103,7 +103,7 @@ export class AdminController {
     return res.json({ success });
   }
 
-  // ── Products ───────────────────────────────────────────────────────────────
+  // -- Products ---------------------------------------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/products')
@@ -137,12 +137,12 @@ export class AdminController {
     return res.json(result);
   }
 
-  // ── Chat health (live metrics) ─────────────────────────────────────────────
+  // -- Chat health (live metrics) ---------------------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/chat/health')
-  async getChatHealth(@Res() res: Response) {
-    const metrics = await this.getChatHealthUseCase.execute();
+  async getChatHealth(@QueryParam('days') days: number = 30, @Res() res: Response) {
+    const metrics = await this.getChatHealthUseCase.execute(days);
     return res.json({ success: true, data: metrics });
   }
 
@@ -161,7 +161,7 @@ export class AdminController {
     res.on('close', () => clearInterval(interval));
   }
 
-  // ── RAG service health proxy ───────────────────────────────────────────────
+  // -- RAG service health proxy -----------------------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/rag/health')
@@ -179,7 +179,7 @@ export class AdminController {
     }
   }
 
-  // ── Analytics ──────────────────────────────────────────────────────────────
+  // -- Analytics --------------------------------------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/analytics/activity')
@@ -216,7 +216,7 @@ export class AdminController {
     return res.json({ success: true, data: graph });
   }
 
-  // ── Analytics: KPI overview ────────────────────────────────────────────────
+  // -- Analytics: KPI overview ------------------------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/analytics/overview')
@@ -251,7 +251,7 @@ export class AdminController {
     });
   }
 
-  // ── Analytics: per-user signal summary ────────────────────────────────────
+  // -- Analytics: per-user signal summary ------------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/analytics/users/summary')
@@ -276,7 +276,7 @@ export class AdminController {
     return res.json({ success: true, data: result.rows });
   }
 
-  // ── Analytics: signals breakdown (chatbot vs UI) ───────────────────────────
+  // -- Analytics: signals breakdown (chatbot vs UI) ---------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/analytics/signals/breakdown')
@@ -315,7 +315,7 @@ export class AdminController {
     });
   }
 
-  // ── Chat: aggregated user list ─────────────────────────────────────────────
+  // -- Chat: aggregated user list ---------------------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/chat/users')
@@ -369,7 +369,7 @@ export class AdminController {
     return res.json({ success: true, data });
   }
 
-  // ── Chat: messages ─────────────────────────────────────────────────────────
+  // -- Chat: messages ---------------------------------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/chat/messages')
@@ -404,7 +404,7 @@ export class AdminController {
     return res.json({ success: true, data: result });
   }
 
-  // ── Chat: quality / hallucination tracker ──────────────────────────────────
+  // -- Chat: quality / hallucination tracker ----------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/chat/quality')
@@ -451,7 +451,7 @@ export class AdminController {
     for (const { msg } of recentForLang) {
       if (/[\u0600-\u06FF]/.test(msg))
         langBreakdown.arabic++;
-      else if (/[àâäéèêëîïôùûü]|bonjour|merci|sérum|peau/i.test(msg))
+      else if (/[�������������]|bonjour|merci|s�rum|peau/i.test(msg))
         langBreakdown.french++;
       else if (/[a-zA-Z]/.test(msg))
         langBreakdown.english++;
@@ -479,7 +479,7 @@ export class AdminController {
     });
   }
 
-  // ── User activity signals ──────────────────────────────────────────────────
+  // -- User activity signals --------------------------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/users/:userId/activity')
@@ -501,7 +501,7 @@ export class AdminController {
     return res.json({ success: true, data: summary });
   }
 
-  // ── User chat (by userId) — backward compat ────────────────────────────────
+  // -- User chat (by userId) � backward compat --------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/users/:userId/chat')
@@ -523,7 +523,7 @@ export class AdminController {
     return res.json({ success: true, data: enriched });
   }
 
-  // ── Orders ─────────────────────────────────────────────────────────────────
+  // -- Orders -----------------------------------------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/orders')
