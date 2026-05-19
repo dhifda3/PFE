@@ -291,7 +291,7 @@ html, body, body * {
 .text-cyan       { color: var(--cyan); }
 .text-cyan-soft  { color: var(--cyan-soft); }
 .eyebrow {
-  font-family: var(--font-label); font-size: 0.6rem;
+  font-family: var(--font-label); font-size: 0.75rem;
   letter-spacing: 0.4em; text-transform: uppercase; color: var(--amber);
 }
 
@@ -299,7 +299,7 @@ html, body, body * {
    BUTTONS
    ════════════════════════════════════════ */
 .btn {
-  font-family: var(--font-label); font-size: 0.65rem; letter-spacing: 0.2em;
+  font-family: var(--font-label); font-size: 0.8rem; letter-spacing: 0.2em;
   text-transform: uppercase; cursor: pointer; transition: all 0.3s; border: none;
   display: inline-flex; align-items: center; justify-content: center;
   position: relative; overflow: hidden;
@@ -358,7 +358,7 @@ html, body, body * {
 .form-field:focus { border-color: var(--cyan); box-shadow: 0 0 20px var(--cyan-glass); }
 .form-field::placeholder { color: var(--text-muted); }
 .form-label {
-  font-family: var(--font-label); font-size: 0.6rem;
+  font-family: var(--font-label); font-size: 0.75rem;
   letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--text-muted); margin-bottom: 0.5rem; display: block;
 }
@@ -411,7 +411,7 @@ html, body, body * {
 .admin-layout .cursor, .admin-layout .cursor-ring { display: none !important; }
 
 .admin-nav-item {
-  font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.15em;
+  font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.15em;
   text-transform: uppercase; color: var(--admin-text); padding: 0.85rem 2rem;
   display: flex; align-items: center; gap: 0.8rem;
   text-decoration: none; border-left: 2px solid transparent;
@@ -434,12 +434,12 @@ html, body, body * {
   font-weight: 300; color: var(--amber); line-height: 1; margin-bottom: 0.3rem;
 }
 .admin-stat-label {
-  font-size: 0.65rem; letter-spacing: 0.1em;
+  font-size: 0.8rem; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--text-muted);
 }
 .admin-table { width: 100%; border-collapse: collapse; }
 .admin-table th {
-  font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.2em;
+  font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.2em;
   text-transform: uppercase; color: var(--text-muted); padding: 1rem 1.5rem;
   text-align: left; border-bottom: 1px solid var(--admin-border);
 }
@@ -449,17 +449,17 @@ html, body, body * {
 }
 .admin-table tr:hover td { background: rgba(128,80,20,0.03); }
 .admin-table .badge-amber {
-  font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.1em;
+  font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--amber);
   border: 1px solid rgba(255,95,31,0.3); padding: 0.2rem 0.6rem;
 }
 .admin-table .badge-cyan {
-  font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.1em;
+  font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--cyan-soft);
   border: 1px solid rgba(35,213,213,0.3); padding: 0.2rem 0.6rem;
 }
 .admin-table .badge-muted {
-  font-size: 0.55rem; color: var(--text-muted);
+  font-size: 0.7rem; color: var(--text-muted);
   border: 1px solid rgba(128,80,20,0.15); padding: 0.2rem 0.6rem;
 }
 
