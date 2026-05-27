@@ -37,7 +37,7 @@ function getOrCreateSessionId(): string {
 const WELCOME: ChatMessage = {
   id: "welcome",
   role: "bot",
-  text: "Bonjour! I'm your Lumière beauty advisor. Ask me about skincare, product recommendations, or your order status.",
+  text: "hi! I'm your Lumière beauty advisor. Ask me about skincare, product recommendations, or your order status.",
   logId: null,
   feedback: null,
   isStreaming: false,

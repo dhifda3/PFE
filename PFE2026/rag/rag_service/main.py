@@ -284,6 +284,7 @@ _translate_executor = concurrent.futures.ThreadPoolExecutor(max_workers=2)
 def search(
     q: str,
     limit: int = 6,
+    category: str | None = None,
     _token: str = Depends(require_service_token)
 ):
     if not q.strip() or collection.count() == 0:
@@ -433,6 +434,7 @@ def sync(_token: str = Depends(require_service_token)):
 
             document = (
                 f"{name} "
+                f"[{cat_name}] "
                 f"{desc} "
                 f"{skin_types} "
                 f"{ingredients}"

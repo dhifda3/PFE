@@ -1,46 +1,4 @@
-// import { JsonController, Get, Post, Delete, Body, Param, Authorized, Res, CurrentUser } from 'routing-controllers';
-// import { Response } from 'express';
-// import { Inject, Service } from 'typedi';
-// import { BaseController } from './BaseController.js';
-// import { IAddReviewUseCase } from '../../core/usecases/review/AddReviewUseCase.js';
-// import { IListProductReviewsUseCase } from '../../core/usecases/review/ListProductReviewsUseCase.js';
-// import { IDeleteReviewUseCase } from '../../core/usecases/review/DeleteReviewUseCase.js';
-// import { AddReviewDto } from '../dtos/review/AddReviewDto.js';
 
-// @JsonController('/reviews')
-// @Service()
-// export class ReviewController extends BaseController {
-//     constructor(
-//         @Inject('IAddReviewUseCase') private addReviewUseCase: IAddReviewUseCase,
-//         @Inject('IListProductReviewsUseCase') private listProductReviewsUseCase: IListProductReviewsUseCase,
-//         @Inject('IDeleteReviewUseCase') private deleteReviewUseCase: IDeleteReviewUseCase
-//     ) {
-//         super();
-//     }
-
-//     @Post('/')
-//     @Authorized()
-//     async add(@Body() dto: AddReviewDto, @CurrentUser() user: { id: string }, @Res() res: Response) {
-//         const result = await this.addReviewUseCase.execute({ ...dto, userId: user.id });
-//         return this.handleResultAsJson(result, res);
-//     }
-
-//     @Get('/product/:productId')
-//     async list(@Param('productId') productId: string, @Res() res: Response) {
-//         const result = await this.listProductReviewsUseCase.execute(productId);
-//         return this.handleResultAsJson(result, res);
-//     }
-
-//     @Delete('/:id')
-//     @Authorized()
-//     async delete(@Param('id') id: string, @CurrentUser() user: { id: string, role?: string }, @Res() res: Response) {
-//         // Assuming user object has role, or we check DB. For now assuming 'admin' string in role if admin.
-//         // Adjust auth logic as needed.
-//         const isAdmin = user.role === 'admin';
-//         const result = await this.deleteReviewUseCase.execute(id, user.id, isAdmin);
-//         return this.handleResultAsJson(result, res);
-//     }
-// }
 import { JsonController, Get, Post, Delete, Body, Param, Authorized, Res, CurrentUser } from 'routing-controllers';
 import { Response } from 'express';
 import { Service } from 'typedi';

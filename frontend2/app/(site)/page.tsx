@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import { useAuthStore } from "@/lib/authStore";
 import { useSignal } from "@/hooks/useSignal";
 import RecommendedProducts from "@/components/site/RecommendedProducts";
 
-// ─── Hero images ──────────────────────────────────────────────────────────────
+// --- Hero images --------------------------------------------------------------
 const HERO_SLIDES: { img: string; tagline: string }[] = [
   { img: "/images/hero-amber-front.jpg", tagline: "Rituals for Every Skin"               },
   { img: "/images/hero-amber-side.jpg",  tagline: "Where Light Meets Skin"               },
@@ -21,7 +21,7 @@ const HERO_SLIDES: { img: string; tagline: string }[] = [
 const SLIDE_DURATION = 5500;
 const FADE_MS        = 1500;
 
-// ─── Cinematic Hero ───────────────────────────────────────────────────────────
+// --- Cinematic Hero -----------------------------------------------------------
 function HeroSlideshow() {
   const [idx, setIdx]         = useState(0);
   const [textKey, setTextKey] = useState(0);
@@ -86,7 +86,7 @@ function HeroSlideshow() {
           textTransform: "uppercase", color: "var(--amber-soft)", opacity: 0,
           marginBottom: "1.5rem", animationDelay: "0.1s",
         }}>
-          LUM<span style={{ color: "var(--cyan)" }}>I</span>NA — Skin Rituals
+          LUM<span style={{ color: "var(--cyan)" }}>I</span>NA -- Skin Rituals
         </p>
         <h1 key={`h1-${textKey}`} className="hero-text-in" style={{
           fontFamily: "var(--font-display)", fontStyle: "italic",
@@ -106,7 +106,7 @@ function HeroSlideshow() {
           {HERO_SLIDES[idx].tagline}
         </p>
         <div key={`cta-${textKey}`} className="hero-text-in" style={{ opacity: 0, animationDelay: "0.65s", display: "flex", gap: "1rem" }}>
-          <Link href="/products" style={{
+          <Link href="/" style={{
             fontFamily: "var(--font-label)", fontSize: "0.6rem", letterSpacing: "0.25em",
             textTransform: "uppercase", padding: "0.85rem 2.2rem",
             background: "var(--amber)", color: "#000", textDecoration: "none",
@@ -168,95 +168,23 @@ function HeroSlideshow() {
   );
 }
 
-// ─── Full-collection section gradient orbs ────────────────────────────────────
+// --- Full-collection section gradient orbs ------------------------------------
 function CollectionGradientBG() {
   return (
-    <>
-      <style>{`
-        @keyframes col-orb1 {
-          0%   { transform: translate(0%,   0%)   scale(1);    }
-          33%  { transform: translate(7%,  -9%)   scale(1.13); }
-          66%  { transform: translate(-5%,  8%)   scale(0.91); }
-          100% { transform: translate(0%,   0%)   scale(1);    }
-        }
-        @keyframes col-orb2 {
-          0%   { transform: translate(0%,   0%)   scale(1);    }
-          33%  { transform: translate(-9%,  6%)   scale(1.19); }
-          66%  { transform: translate(6%,  -7%)   scale(0.87); }
-          100% { transform: translate(0%,   0%)   scale(1);    }
-        }
-        @keyframes col-orb3 {
-          0%   { transform: translate(0%,   0%)   scale(1);    }
-          50%  { transform: translate(11%,  5%)   scale(1.09); }
-          100% { transform: translate(0%,   0%)   scale(1);    }
-        }
-        @keyframes col-orb4 {
-          0%   { transform: translate(0%,   0%)   scale(1);    }
-          40%  { transform: translate(-6%,  -7%)  scale(1.16); }
-          80%  { transform: translate(5%,   9%)   scale(0.93); }
-          100% { transform: translate(0%,   0%)   scale(1);    }
-        }
-        @keyframes col-orb5 {
-          0%   { transform: translate(0%,   0%)   scale(1);    }
-          45%  { transform: translate(-4%,  6%)   scale(1.1);  }
-          100% { transform: translate(0%,   0%)   scale(1);    }
-        }
-      `}</style>
-
-      {/* Orb 1 — deep cyan, top-right corner */}
-      <div style={{
-        position: "absolute", top: "-10%", right: "-8%",
-        width: "45%", height: "55%",
-        background: "radial-gradient(ellipse, rgba(0,175,215,0.26) 0%, rgba(0,140,195,0.12) 48%, transparent 70%)",
-        filter: "blur(65px)",
-        animation: "col-orb1 17s ease-in-out infinite",
-        pointerEvents: "none",
-      }} />
-
-      {/* Orb 2 — richer cyan, bottom-left */}
-      <div style={{
-        position: "absolute", bottom: "5%", left: "-10%",
-        width: "50%", height: "55%",
-        background: "radial-gradient(ellipse, rgba(0,195,225,0.30) 0%, rgba(0,155,205,0.14) 48%, transparent 70%)",
-        filter: "blur(60px)",
-        animation: "col-orb2 21s ease-in-out infinite",
-        pointerEvents: "none",
-      }} />
-
-      {/* Orb 3 — teal, centre-right (middle of the marquee band) */}
-      <div style={{
-        position: "absolute", top: "38%", right: "-5%",
-        width: "35%", height: "38%",
-        background: "radial-gradient(ellipse, rgba(0,205,205,0.20) 0%, transparent 65%)",
-        filter: "blur(52px)",
-        animation: "col-orb3 25s ease-in-out infinite",
-        pointerEvents: "none",
-      }} />
-
-      {/* Orb 4 — sky blue, top-left */}
-      <div style={{
-        position: "absolute", top: "5%", left: "-5%",
-        width: "32%", height: "36%",
-        background: "radial-gradient(ellipse, rgba(0,165,235,0.16) 0%, transparent 65%)",
-        filter: "blur(48px)",
-        animation: "col-orb4 19s ease-in-out infinite",
-        pointerEvents: "none",
-      }} />
-
-      {/* Orb 5 — deeper teal, bottom-right — anchors the second marquee row */}
-      <div style={{
-        position: "absolute", bottom: "-5%", right: "10%",
-        width: "38%", height: "40%",
-        background: "radial-gradient(ellipse, rgba(0,185,210,0.18) 0%, transparent 65%)",
-        filter: "blur(55px)",
-        animation: "col-orb5 22s ease-in-out infinite",
-        pointerEvents: "none",
-      }} />
-    </>
+    <div className="col-orbs-layer">
+      <div className="col-orb col-orb-1" />
+      <div className="col-orb col-orb-2" />
+      <div className="col-orb col-orb-3" />
+      <div className="col-orb col-orb-4" />
+      <div className="col-orb col-orb-5" />
+      <div className="col-orb col-orb-6" />
+      <div className="col-orb col-orb-7" />
+      <div className="col-orb col-orb-8" />
+    </div>
   );
 }
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// --- Types --------------------------------------------------------------------
 interface Product {
   id: string;
   name: string;
@@ -274,7 +202,7 @@ interface Product {
 
 const SORT_OPTIONS = ["Newest", "Price: Low to High", "Price: High to Low", "Best Rated"] as const;
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
+// --- Page ---------------------------------------------------------------------
 export default function HomePage() {
   const router       = useRouter();
   const searchParams = useSearchParams();
@@ -314,10 +242,7 @@ export default function HomePage() {
 
   const filtered = products
     .filter((p) => p.isActive)
-    .filter((p) =>
-      activeCategory === "All" ||
-      categories.find((c) => c.name === activeCategory)?.id === p.categoryId
-    )
+    .filter((p) => activeCategory === "All" || categories.find((c) => c.name === activeCategory)?.id === p.categoryId)
     .filter((p) =>
       !search ||
       p.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -346,24 +271,21 @@ export default function HomePage() {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-primary)" }}>
 
-      {/* ── Cinematic hero ── */}
+      {/* -- Cinematic hero -- */}
       <HeroSlideshow />
 
-      {/* ── Recommended products (has its own orbs via RecommendedProducts.tsx) ── */}
+      {/* -- Recommended products -- */}
       <div style={{ paddingTop: "3rem" }}>
         <RecommendedProducts />
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          Full Collection section — wrapped in a relative container so the
-          gradient orbs are clipped to this block and don't bleed into the hero.
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* ----------------------------------------------------------------------
+          Full Collection section
+      ---------------------------------------------------------------------- */}
       <div style={{ position: "relative", overflow: "hidden" }}>
 
-        {/* ── Animated gradient orbs ── */}
         <CollectionGradientBG />
 
-        {/* ── Everything below sits above the orbs ── */}
         <div style={{ position: "relative", zIndex: 1 }}>
 
           {/* Section header */}
@@ -373,7 +295,7 @@ export default function HomePage() {
               textTransform: "uppercase", color: "var(--amber-soft)",
               marginBottom: "1rem", opacity: 0.85,
             }}>
-              Browse All
+              The Collection
             </p>
             <h2 style={{
               fontFamily: "var(--font-display)",
@@ -381,10 +303,10 @@ export default function HomePage() {
               fontWeight: 300, color: "var(--text-primary)",
               margin: "0 0 0.6rem", letterSpacing: "0.05em",
             }}>
-              The Full Collection
+              All Products
             </h2>
             <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", letterSpacing: "0.05em" }}>
-              {filtered.length} product{filtered.length !== 1 ? "s" : ""} · hover to pause
+              {filtered.length} product{filtered.length !== 1 ? "s" : ""} -- hover to pause
             </p>
           </div>
 
@@ -481,14 +403,14 @@ export default function HomePage() {
             </div>
           )}
 
-        </div>{/* /zIndex wrapper */}
-      </div>{/* /relative overflow-hidden */}
+        </div>
+      </div>
 
     </div>
   );
 }
 
-// ─── Product Card ─────────────────────────────────────────────────────────────
+// --- Product Card -------------------------------------------------------------
 function ProductCard({
   product, user, router, track,
 }: {
@@ -579,7 +501,7 @@ function ProductCard({
                 <img src={product.images[0]} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               ) : (
                 <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, var(--amber-honey), transparent)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: "2.5rem", opacity: 0.3 }}>🧴</span>
+                  <span style={{ fontSize: "2.5rem", opacity: 0.3 }}>??</span>
                 </div>
               )}
             </div>
@@ -594,7 +516,7 @@ function ProductCard({
             <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "0.75rem", opacity: inside.current ? 1 : 0, transition: "all 0.3s ease" }}>
               <button onClick={handleAddToCart} disabled={adding} style={{ width: "100%", fontFamily: "var(--font-label)", fontSize: "0.55rem", letterSpacing: "0.15em", textTransform: "uppercase", padding: "0.7rem", background: added ? "rgba(35,213,213,0.9)" : "rgba(255,95,31,0.9)", color: "#000", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", transition: "all 0.3s" }}>
                 <ShoppingBag size={12} />
-                {adding ? "Adding..." : added ? "Added ✓" : product.hasVariants ? "Select Options" : "Add to Cart"}
+                {adding ? "Adding..." : added ? "Added ?" : product.hasVariants ? "Select Options" : "Add to Cart"}
               </button>
             </div>
           </div>
@@ -607,7 +529,7 @@ function ProductCard({
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <p style={{ fontFamily: "var(--font-label)", fontSize: "0.72rem", color: "var(--text-primary)", letterSpacing: "0.05em" }}>{displayPrice}</p>
               {Number(product.averageRating) > 0 && (
-                <p style={{ fontSize: "0.72rem", color: "var(--amber)", letterSpacing: "0.03em" }}>★ {Number(product.averageRating).toFixed(1)}</p>
+                <p style={{ fontSize: "0.72rem", color: "var(--amber)", letterSpacing: "0.03em" }}>? {Number(product.averageRating).toFixed(1)}</p>
               )}
             </div>
           </div>

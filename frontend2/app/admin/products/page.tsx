@@ -12,7 +12,7 @@ export interface Product {
   averageRating?:string|number; reviewCount?:number;
 }
 
-function fmtPrice(p:string|number|null){if(p==null)return"—";const n=typeof p==="string"?parseFloat(p):p;return isNaN(n)?"—":`$${n.toFixed(2)}`;}
+function fmtPrice(p:string|number|null){if(p==null)return"--";const n=typeof p==="string"?parseFloat(p):p;return isNaN(n)?"--":`${n.toFixed(2)} DT`;}
 
 function Stars({ rating }: { rating?: string | number }) {
   const D = useD();
@@ -52,7 +52,7 @@ function ProductRow({ p, deletingId, onToggle, onEdit, onDelete }: { p:Product; 
       <td style={{...td,fontFamily:D.mono,fontSize:"0.72rem",color:D.dim}}>{p.sku}</td>
       <td style={{...td,textAlign:"right",color:D.text,fontFamily:D.mono}}>{fmtPrice(p.price)}</td>
       <td style={{...td,textAlign:"right",fontFamily:D.mono,color:stockColor()}}>
-        {p.hasVariants?<span style={{color:D.dim}}>—</span>:p.stock!=null?<span>{p.stock===0&&<AlertCircle size={11} style={{display:"inline",marginRight:4}}/>}{p.stock}</span>:<span style={{color:D.dim}}>—</span>}
+        {p.hasVariants?<span style={{color:D.dim}}>�</span>:p.stock!=null?<span>{p.stock===0&&<AlertCircle size={11} style={{display:"inline",marginRight:4}}/>}{p.stock}</span>:<span style={{color:D.dim}}>�</span>}
       </td>
       <td style={{...td,textAlign:"center"}}><div style={{display:"flex",justifyContent:"center"}}><Stars rating={p.averageRating}/></div>{(p.reviewCount??0)>0&&<p style={{fontFamily:D.font,fontSize:"0.38rem",letterSpacing:"0.1em",color:D.dim,marginTop:3}}>{p.reviewCount} reviews</p>}</td>
       <td style={{...td,textAlign:"center"}}>
@@ -107,7 +107,7 @@ export default function AdminProductsPage() {
         <div style={{display:"flex",alignItems:"center",gap:"0.75rem",flex:1,maxWidth:520}}>
           <div style={{position:"relative",flex:1,display:"flex",alignItems:"center",background:D.panel,border:`1px solid ${searchFocused?`${D.orange}80`:D.border}`,borderRadius:4,padding:"0.55rem 0.85rem",gap:"0.6rem"}}>
             <Search size={12} color={D.dim} style={{flexShrink:0}}/>
-            <input type="text" placeholder="Search name, brand, SKU…" value={search} onChange={e=>setSearch(e.target.value)} onFocus={()=>setSearchFocused(true)} onBlur={()=>setSearchFocused(false)}
+            <input type="text" placeholder="Search name, brand, SKU�" value={search} onChange={e=>setSearch(e.target.value)} onFocus={()=>setSearchFocused(true)} onBlur={()=>setSearchFocused(false)}
               style={{background:"none",border:"none",outline:"none",fontFamily:D.font,fontSize:"0.48rem",letterSpacing:"0.12em",color:D.text,width:"100%"}}/>
           </div>
           <div style={{display:"flex",gap:"0.35rem"}}>

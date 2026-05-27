@@ -139,7 +139,7 @@ export default function AdminUsersPage() {
       <div style={{ marginBottom:"2.5rem" }}>
         <div style={{ display:"flex",alignItems:"center",gap:"0.75rem",marginBottom:"0.5rem" }}>
           <div style={{ width:"24px",height:"1px",background:D.orange }} />
-          <p style={{ fontFamily:D.font,fontSize:"0.7rem",letterSpacing:"0.35em",textTransform:"uppercase" as const,color:D.orange,opacity:0.7 }}>Admin � Access Control</p>
+          <p style={{ fontFamily:D.font,fontSize:"0.7rem",letterSpacing:"0.35em",textTransform:"uppercase" as const,color:D.orange,opacity:0.7 }}>Admin -- Access Control</p>
         </div>
         <h1 style={{ fontFamily:D.font,fontSize:"1.3rem",fontWeight:700,letterSpacing:"0.2em",textTransform:"uppercase" as const,color:D.text,marginBottom:"0.3rem" }}>User Management</h1>
         <p style={{ fontFamily:D.font,fontSize:"0.72rem",letterSpacing:"0.18em",textTransform:"uppercase" as const,color:D.dim }}>{users.length} registered accounts</p>
@@ -158,7 +158,7 @@ export default function AdminUsersPage() {
         <div style={{ display:"flex",alignItems:"center",gap:"0.75rem",background:D.panelB,border:`1px solid ${searchFocused?`${D.orange}66`:D.border}`,padding:"0.65rem 1rem",flex:1,maxWidth:"380px",transition:"border-color 0.2s" }}>
           <Search size={13} color={searchFocused?D.orange:D.dim} style={{flexShrink:0}} />
           <input style={{ background:"none",border:"none",outline:"none",color:D.text,fontFamily:D.font,fontSize:"0.78rem",letterSpacing:"0.12em",textTransform:"uppercase" as const,flex:1,minWidth:0 }}
-            placeholder="Search users�" value={query} onChange={e=>setQuery(e.target.value)}
+            placeholder="Search users --" value={query} onChange={e=>setQuery(e.target.value)}
             onFocus={()=>setSearchFocused(true)} onBlur={()=>setSearchFocused(false)} />
           {query&&<button onClick={()=>setQuery("")} style={{ background:"none",border:"none",cursor:"pointer",color:D.dim,fontSize:"1rem",padding:0,lineHeight:1 }}>�</button>}
         </div>

@@ -204,7 +204,7 @@ function VariantRow({
         )}
         {v.price && (
           <span className="text-xs text-[#6B4F3A]/50 tabular-nums">
-            ${parseFloat(v.price || "0").toFixed(2)}
+            {parseFloat(v.price || "0").toFixed(2)} DT
           </span>
         )}
         <div className="flex items-center gap-1 ml-2">
@@ -234,10 +234,10 @@ function VariantRow({
           </div>
 
           <div className="grid grid-cols-3 gap-3">
-            <Field label="Price *" prefix="$">
+            <Field label="Price *" prefix="DT">
               <input type="number" step="0.01" min="0" value={v.price} onChange={(e) => set({ price: e.target.value })} required />
             </Field>
-            <Field label="Compare-at Price" prefix="$">
+            <Field label="Compare-at Price" prefix="DT">
               <input type="number" step="0.01" min="0" value={v.compareAtPrice} onChange={(e) => set({ compareAtPrice: e.target.value })} placeholder="Optional" />
             </Field>
             <Field label="Stock">

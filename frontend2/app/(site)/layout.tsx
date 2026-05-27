@@ -39,7 +39,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#07050A" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--bg-primary)" }}>
       {/* Global grain texture */}
       <div className="grain-overlay" />
 
@@ -74,7 +74,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
       {/* Footer */}
       <footer
         style={{
-          borderTop: "1px solid rgba(255,255,255,0.06)",
+          borderTop: "1px solid var(--border)",
           padding: "2rem",
           textAlign: "center",
           opacity: showIntro ? 0 : 1,
@@ -86,13 +86,13 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
             fontFamily: "'Syncopate', sans-serif",
             fontSize: "0.75rem",
             letterSpacing: "0.3em",
-            color: "rgba(255,255,255,0.4)",
+            color: "var(--text-muted)",
             marginBottom: "0.5rem",
           }}
         >
-          LUM<span style={{ color: "#00FFFF" }}>I</span>NA
+          LUM<span style={{ color: "var(--cyan)" }}>I</span>NA
         </p>
-        <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.2)" }}>
+        <p style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
           © 2026 Lumina Skincare. All rights reserved.
         </p>
       </footer>

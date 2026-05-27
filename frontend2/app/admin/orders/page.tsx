@@ -22,7 +22,7 @@ function getStatusColor(D: AdminTokens): Record<string,string> {
   };
 }
 
-function fmt(n:number){return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:2}).format(n);}
+function fmt(n:number){return `${Number(n).toFixed(2)} DT`;}
 function fmtDate(s:string){return new Date(s).toLocaleString("en-US",{month:"short",day:"numeric",year:"numeric",hour:"2-digit",minute:"2-digit"});}
 
 function StatusPipeline({order,onUpdate}:{order:Order;onUpdate:(id:string,status:string)=>void}){
@@ -136,6 +136,7 @@ export default function AdminOrdersPage(){
   const [dateTo,setDateTo]=useState("");
   const [expanded,setExpanded]=useState<string|null>(null);
   const [searchFocused,setSearchFocused]=useState(false);
+  const [statusFilter,setStatusFilter]=useState<string|null>(null);
 
   const th: React.CSSProperties = {
     fontFamily:D.font, fontSize:"0.4rem", letterSpacing:"0.15em", color:D.dim,
@@ -161,6 +162,7 @@ export default function AdminOrdersPage(){
   }
 
   const filtered=orders.filter(o=>{
+    if(statusFilter && o.status !== statusFilter) return false;
     if(!userSearch)return true;
     const q=userSearch.toLowerCase();
     return o.userName?.toLowerCase().includes(q)||o.userEmail?.toLowerCase().includes(q)||o.userId.toLowerCase().includes(q);
@@ -192,16 +194,31 @@ export default function AdminOrdersPage(){
       </div>
 
       {/* Status badges */}
-      <div style={{display:"flex",gap:"0.65rem",marginBottom:"1.5rem",flexWrap:"wrap" as const}}>
-        {Object.entries(statusCounts).map(([k,count])=>(
-          <div key={k} style={{background:D.panel,border:`1px solid ${STATUS_COLOR[k]}44`,borderRadius:3,
-                               padding:"0.5rem 1rem",display:"flex",alignItems:"center",gap:"0.5rem"}}>
-            <span style={{width:6,height:6,borderRadius:"50%",background:STATUS_COLOR[k]}}/>
-            <span style={{fontFamily:D.font,fontSize:"0.4rem",letterSpacing:"0.12em",color:D.dim}}>{k.replace(/_/g," ")}</span>
+    {/* Status filter badges */}
+    <div style={{display:"flex",gap:"0.65rem",marginBottom:"1.5rem",flexWrap:"wrap" as const}}>
+      <button onClick={()=>setStatusFilter(null)}
+        style={{background:statusFilter===null?`${D.orange}18`:D.panel,
+                border:`1px solid ${statusFilter===null?D.orange:D.border}`,borderRadius:3,
+                padding:"0.5rem 1rem",display:"flex",alignItems:"center",gap:"0.5rem",cursor:"pointer"}}>
+        <span style={{fontFamily:D.font,fontSize:"0.4rem",letterSpacing:"0.12em",color:statusFilter===null?D.orange:D.dim}}>ALL</span>
+        <span style={{fontFamily:D.mono,fontSize:"0.85rem",color:D.text,fontWeight:700}}>{orders.length}</span>
+      </button>
+      {Object.entries(statusCounts).map(([k,count])=>{
+        const active = statusFilter===k;
+        return(
+          <button key={k} onClick={()=>setStatusFilter(active?null:k)}
+            style={{background:active?`${STATUS_COLOR[k]}18`:D.panel,
+                    border:`1px solid ${active?STATUS_COLOR[k]:STATUS_COLOR[k]+"44"}`,borderRadius:3,
+                    padding:"0.5rem 1rem",display:"flex",alignItems:"center",gap:"0.5rem",cursor:"pointer"}}>
+            <span style={{width:6,height:6,borderRadius:"50%",background:STATUS_COLOR[k],
+                          boxShadow:active?`0 0 6px ${STATUS_COLOR[k]}`:"none"}}/>
+            <span style={{fontFamily:D.font,fontSize:"0.4rem",letterSpacing:"0.12em",
+                          color:active?STATUS_COLOR[k]:D.dim}}>{k.replace(/_/g," ")}</span>
             <span style={{fontFamily:D.mono,fontSize:"0.85rem",color:D.text,fontWeight:700}}>{count}</span>
-          </div>
-        ))}
-      </div>
+          </button>
+        );
+      })}
+    </div>
 
       {/* Filters */}
       <div style={{display:"flex",alignItems:"center",gap:"0.75rem",marginBottom:"1.25rem",flexWrap:"wrap" as const}}>

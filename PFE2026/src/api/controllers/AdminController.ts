@@ -1,4 +1,4 @@
-﻿
+
 
 import { JsonController, Get, Authorized, Res, Patch, Param, Body, Delete, Post, QueryParam } from 'routing-controllers';
 import { Response } from 'express';
@@ -20,6 +20,8 @@ import { conversationLogs } from '../../infrastructure/db/schema/conversationLog
 import { eq, desc, sql, gte, lte, and } from 'drizzle-orm';
 import { userSignals } from '../../infrastructure/db/schema/userSignals.js';
 import { orders } from '../../infrastructure/db/schema/orders.js';
+import { reviews } from '../../infrastructure/db/schema/reviews.js';
+import { products } from '../../infrastructure/db/schema/products.js';
 
 class UpdateRoleDto {
   role!: UserRole;
@@ -85,7 +87,7 @@ export class AdminController {
     return res.json({ success: true, data: users });
   }
 
-  @Authorized(['super_admin'])
+  @Authorized(['admin', 'super_admin'])
   @Patch('/users/:userId/role')
   async updateUserRole(
     @Param('userId') userId: string,
@@ -96,13 +98,33 @@ export class AdminController {
     return res.json({ success });
   }
 
-  @Authorized(['super_admin'])
+  @Authorized(['admin', 'super_admin'])
   @Delete('/users/:userId')
   async suspendUser(@Param('userId') userId: string, @Res() res: Response) {
     const success = await this.suspendUserUseCase.execute(userId);
     return res.json({ success });
   }
+// FROM:
+  @Authorized(['admin', 'super_admin'])
+  @Get('/users/:userId/addresses')
+  async getUserAddresses(
+    @Param('userId') userId: string,
+    @Res() res: Response,
+  ) {
+    const rows = await db
+      .select({ shippingAddress: orders.shippingAddress })
+      .from(orders)
+      .where(eq(orders.userId, userId))
+      .orderBy(desc(orders.createdAt));
 
+    // deduplicate
+    const seen = new Set<string>();
+    const data = rows
+      .filter(r => r.shippingAddress && !seen.has(r.shippingAddress) && seen.add(r.shippingAddress))
+      .map((r, i) => ({ id: String(i), streetAddress: r.shippingAddress, isDefault: i === 0 }));
+
+    return res.json({ success: true, data });
+  }
   // -- Products ---------------------------------------------------------------
 
   @Authorized(['admin', 'super_admin'])
@@ -451,7 +473,7 @@ export class AdminController {
     for (const { msg } of recentForLang) {
       if (/[\u0600-\u06FF]/.test(msg))
         langBreakdown.arabic++;
-      else if (/[àâäéèêëîïôùûü]|bonjour|merci|s[ée]rum|peau|cheveux|produit|cr[eè]me|huile|masque|tonik|visage|solaire|hydrat|soin|beaut|recommand|pour les|je veux|avez.vous|qu[ea]|votre|notre|avec/i.test(msg))
+      else if (/[?????????????]|bonjour|merci|s[?e]rum|peau|cheveux|produit|cr[e?]me|huile|masque|tonik|visage|solaire|hydrat|soin|beaut|recommand|pour les|je veux|avez.vous|qu[ea]|votre|notre|avec/i.test(msg))
         langBreakdown.french++;
       else if (/[a-zA-Z]/.test(msg))
         langBreakdown.english++;
@@ -501,7 +523,7 @@ export class AdminController {
     return res.json({ success: true, data: summary });
   }
 
-  // -- User chat (by userId) � backward compat --------------------------------
+  // -- User chat (by userId) ? backward compat --------------------------------
 
   @Authorized(['admin', 'super_admin'])
   @Get('/users/:userId/chat')
@@ -604,4 +626,38 @@ export class AdminController {
 
     return res.json({ success: true });
   }
+
+  @Authorized(['admin', 'super_admin'])
+  @Get('/users/:userId/reviews')
+  async getUserReviews(
+    @Param('userId') userId: string,
+    @Res() res: Response,
+  ) {
+    const rows = await db
+      .select({
+        id:          reviews.id,
+        rating:      reviews.rating,
+        comment:     reviews.comment,
+        isApproved:  reviews.isApproved,
+        createdAt:   reviews.createdAt,
+        productId:   reviews.productId,
+        productName: products.name,
+      })
+      .from(reviews)
+      .leftJoin(products, eq(reviews.productId, products.id))
+      .where(eq(reviews.userId, userId))
+      .orderBy(desc(reviews.createdAt));
+
+    const data = rows.map(r => ({
+      ...r,
+      createdAt: r.createdAt.toISOString(),
+      product: r.productId ? { id: r.productId, name: r.productName } : null,
+    }));
+
+    return res.json({ success: true, data });
+  }
 }
+
+
+
+

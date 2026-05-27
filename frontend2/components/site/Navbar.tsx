@@ -1,6 +1,4 @@
-﻿"use client";
-
-import Link from "next/link";
+﻿import Link from "next/link";
 import { useAuthStore } from "@/lib/authStore";
 import { ShoppingBag, User, Menu, X, Sun, Moon, Heart } from "lucide-react";
 import { useState } from "react";
@@ -46,29 +44,34 @@ export default function Navbar() {
         {/* Desktop nav links */}
         <nav style={{ display: "flex", gap: "2.5rem" }} className="hidden md:flex">
           {[
-            { href: "/products",                        label: "Shop"         },
+            { href: "/",                        label: "Shop"         },
             { href: "/products?category=serums",        label: "Serums"       },
             { href: "/products?category=moisturizers",  label: "Moisturizers" },
             { href: "/products?category=cleansers",     label: "Cleansers"    },
           ].map(({ href, label }) => (
-            <Link key={href} href={href} style={{
+          <Link
+            key={href}
+            href={href}
+            style={{
               fontFamily: "'Syncopate', sans-serif",
-              fontSize: "0.6rem", letterSpacing: "0.15em",
-              textTransform: "uppercase", textDecoration: "none",
-              color: "var(--nav-link)",
+              fontSize: "0.7rem",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              color: "#000",
             }}
             onMouseEnter={e => (e.currentTarget.style.color = "var(--nav-link-hover)")}
-            onMouseLeave={e => (e.currentTarget.style.color = "var(--nav-link)")}
-            >
-              {label}
-            </Link>
+            onMouseLeave={e => (e.currentTarget.style.color = "#6f6f6f")}
+          >
+            {label}
+          </Link>
           ))}
         </nav>
 
         {/* Right actions */}
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
 
-          {/* Wishlist — only for logged-in users */}
+          {/* Wishlist � only for logged-in users */}
           {user && (
             <Link
               href="/wishlist"
@@ -184,7 +187,7 @@ export default function Navbar() {
           display: "flex", flexDirection: "column", gap: "1.5rem",
         }}>
           {[
-            { href: "/products",                       label: "Shop"         },
+            { href: "/",                       label: "Shop"         },
             { href: "/products?category=serums",       label: "Serums"       },
             { href: "/products?category=moisturizers", label: "Moisturizers" },
             { href: "/products?category=cleansers",    label: "Cleansers"    },

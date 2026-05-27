@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -72,7 +72,7 @@ export default function WishlistPage() {
     }
   };
 
-  /* ── Shared empty/guest shell ─────────────────────────────────────────── */
+  /* -- Shared empty/guest shell ------------------------------------------- */
   const Shell = ({ children }: { children: React.ReactNode }) => (
     <div className="min-h-screen" style={{ background: "var(--bg-primary)", paddingTop: "70px" }}>
       <div style={{ maxWidth: 1400, margin: "0 auto", padding: "3.5rem 2rem" }}>
@@ -81,7 +81,7 @@ export default function WishlistPage() {
     </div>
   );
 
-  /* ── Loading ──────────────────────────────────────────────────────────── */
+  /* -- Loading ------------------------------------------------------------ */
   if (authLoading || wishlistLoading) {
     return (
       <Shell>
@@ -92,7 +92,7 @@ export default function WishlistPage() {
     );
   }
 
-  /* ── Not logged in ────────────────────────────────────────────────────── */
+  /* -- Not logged in ------------------------------------------------------ */
   if (!user) {
     return (
       <Shell>
@@ -128,7 +128,7 @@ export default function WishlistPage() {
     );
   }
 
-  /* ── Error ────────────────────────────────────────────────────────────── */
+  /* -- Error -------------------------------------------------------------- */
   if (error) {
     return (
       <Shell>
@@ -139,7 +139,7 @@ export default function WishlistPage() {
     );
   }
 
-  /* ── Empty wishlist ───────────────────────────────────────────────────── */
+  /* -- Empty wishlist ----------------------------------------------------- */
   if (items.length === 0) {
     return (
       <Shell>
@@ -165,7 +165,7 @@ export default function WishlistPage() {
     );
   }
 
-  /* ── Wishlist with items ──────────────────────────────────────────────── */
+  /* -- Wishlist with items ------------------------------------------------ */
   return (
     <div className="min-h-screen" style={{ background: "var(--bg-primary)", paddingTop: "70px" }}>
       <div style={{ maxWidth: 1400, margin: "0 auto", padding: "3.5rem 2rem" }}>
@@ -297,7 +297,7 @@ export default function WishlistPage() {
                         fontSize: "0.85rem", color: "var(--text-secondary)",
                         marginTop: "0.3rem", fontFamily: "var(--font-body)",
                       }}>
-                        ${price.toFixed(2)}
+                        {price.toFixed(2)} DT
                       </p>
                     )}
                   </div>
@@ -360,7 +360,7 @@ export default function WishlistPage() {
             onMouseEnter={(e) => (e.currentTarget.style.color = "var(--cyan)")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
           >
-            ← CONTINUE SHOPPING
+            ? CONTINUE SHOPPING
           </Link>
 
           <Link href="/cart" className="btn btn-primary" style={{ gap: "0.6rem" }}>

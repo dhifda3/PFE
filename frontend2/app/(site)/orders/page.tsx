@@ -390,7 +390,7 @@ export default function OrdersPage() {
                           color: t.labelColor, marginBottom: "0.4rem" }}>Total</p>
                         <p style={{ fontFamily: "'Syncopate', sans-serif", fontSize: "0.7rem",
                           color: t.accentOrange }}>
-                          ${Number(order.totalAmount).toFixed(2)}
+                          {Number(order.totalAmount).toFixed(2)} DT
                         </p>
                       </div>
 
@@ -460,13 +460,13 @@ export default function OrdersPage() {
                                   <p style={{ fontFamily: "'Syncopate', sans-serif",
                                     fontSize: "0.45rem", letterSpacing: "0.1em",
                                     color: t.textSecondary }}>
-                                    Qty: {item.quantity} × ${Number(item.priceAtPurchase).toFixed(2)}
+                                    Qty: {item.quantity} × {Number(item.priceAtPurchase).toFixed(2)} DT
                                   </p>
                                 </div>
                               </div>
                               <p style={{ fontFamily: "'Syncopate', sans-serif",
                                 fontSize: "0.68rem", color: t.textPrimary, flexShrink: 0 }}>
-                                ${(item.quantity * Number(item.priceAtPurchase)).toFixed(2)}
+                                {(item.quantity * Number(item.priceAtPurchase)).toFixed(2)} DT
                               </p>
                             </div>
                           ))}
