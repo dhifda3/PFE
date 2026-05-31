@@ -1,8 +1,21 @@
 import axios from "axios";
 
+// Same-origin proxy in the browser → cookies stay first-party
+// (works in Firefox, Safari, Chrome 3rd-party-cookie blocker, etc.).
+// On the server (SSR), call the backend directly.
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000",
+  baseURL: typeof window === "undefined"
+    ? (process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000")
+    : "",
   withCredentials: true,
+});
+
+// Rewrite /api/* → /api/proxy/* in the browser so requests stay same-origin
+api.interceptors.request.use((config) => {
+  if (typeof window !== "undefined" && config.url?.startsWith("/api/") && !config.url.startsWith("/api/proxy/")) {
+    config.url = config.url.replace(/^\/api\//, "/api/proxy/");
+  }
+  return config;
 });
 
 
