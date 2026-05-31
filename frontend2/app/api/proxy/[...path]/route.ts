@@ -44,8 +44,11 @@ async function handle(req: NextRequest, ctx: { params: { path: string[] } }) {
 
   const outHeaders = new Headers();
   upstream.headers.forEach((v, k) => {
-    if (HOP_BY_HOP.has(k.toLowerCase())) return;
-    if (k.toLowerCase() === "set-cookie") return; // handled below
+    const lk = k.toLowerCase();
+    if (HOP_BY_HOP.has(lk)) return;
+    if (lk === "set-cookie") return;        // handled below
+    if (lk === "content-encoding") return;  // fetch already decoded
+    if (lk === "content-length") return;    // wrong after decode
     outHeaders.set(k, v);
   });
 
