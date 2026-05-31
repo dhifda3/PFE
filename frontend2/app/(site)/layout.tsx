@@ -11,8 +11,11 @@ import { useAuthStore } from "@/lib/authStore";
 import api from "@/lib/api";
 
 export default function SiteLayout({ children }: { children: ReactNode }) {
-  const { user } = useAuthStore();
+  const { user, fetchMe } = useAuthStore();
   const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Restore session from cookie on every page load
+  useEffect(() => { fetchMe(); }, []);
 
   // Only show the intro once per browser session — skip on subsequent navigations
   const [showIntro, setShowIntro] = useState(() => {
