@@ -34,6 +34,8 @@ export class NodemailerEmailService implements IEmailService {
         // Allows local AV / corporate proxy to intercept TLS (dev only)
         rejectUnauthorized: false,
       },
+      // Force IPv4 — Render free tier has broken IPv6 routing
+      family: 4,
     });
   }
 
