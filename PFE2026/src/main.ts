@@ -33,7 +33,13 @@ initSentry(app);
 
 // ── 1. CORS ────────────────────────────────────────────────────────────────
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:3001",
+  origin: (origin, cb) => {
+    if (!origin) return cb(null, true);                 // same-origin / curl
+    if (origin === (process.env.FRONTEND_URL || "")) return cb(null, true);
+    if (/^http:\/\/localhost:\d+$/.test(origin))    return cb(null, true);
+    if (/^https:\/\/[a-z0-9-]+\.vercel\.app$/.test(origin)) return cb(null, true);
+    return cb(new Error("Not allowed by CORS"));
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
