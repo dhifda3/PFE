@@ -25,6 +25,12 @@ export const auth = betterAuth({
         process.env.FRONTEND_URL ?? "http://localhost:3002",
         "https://*.vercel.app",
     ],
+    advanced: {
+        defaultCookieAttributes: {
+            sameSite: "none",
+            secure: true,
+        },
+    },
     plugins: [
         bearer(),
         openAPI(),
