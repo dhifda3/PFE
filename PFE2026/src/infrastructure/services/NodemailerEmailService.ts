@@ -30,6 +30,10 @@ export class NodemailerEmailService implements IEmailService {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      tls: {
+        // Allows local AV / corporate proxy to intercept TLS (dev only)
+        rejectUnauthorized: false,
+      },
     });
   }
 

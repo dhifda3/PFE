@@ -65,7 +65,7 @@
 // function extractMessageProfile(msg) {
 //   const lower = msg.toLowerCase();
 
-//   // Skin type � map-based, longer phrases first to prevent partial shadowing
+//   // Skin type � map-based, longer phrases first to prevent partial shadowing
 //   const SKIN_TYPE_MAP: Array<[string, string]> = [
 //     ["peau grasse",   "oily"],  ["peau s\u00e8che",    "dry"],  ["peau seche",  "dry"],
 //     ["peau mixte",    "combination"], ["peau sensible", "sensitive"], ["peau normale", "normal"],
@@ -79,13 +79,13 @@
 //     if (lower.includes(term)) { skinType = val; break; }
 //   }
 
-//   // Hair type � French first (longer phrases before short ones), then English
+//   // Hair type � French first (longer phrases before short ones), then English
 //   const HAIR_FR_MAP: Array<[string, string]> = [
 //     ["cheveux gras",    "oily"],   ["cheveux sec",     "dry"],  ["cheveux secs",    "dry"],
-//     ["cheveux seche",   "dry"],    ["cheveux boucl�",  "curly"],["cheveux boucle",  "curly"],
-//     ["cheveux fris�",   "curly"],  ["cheveux frises",  "curly"],["cheveux epais",   "thick"],
-//     ["cheveux �pais",   "thick"],  ["cheveux fins",    "fine"], ["cheveux fin",     "fine"],
-//     ["cheveux ondul�",  "wavy"],   ["cheveux lisse",   "straight"],["cheveux raide","straight"],
+//     ["cheveux seche",   "dry"],    ["cheveux boucl�",  "curly"],["cheveux boucle",  "curly"],
+//     ["cheveux fris�",   "curly"],  ["cheveux frises",  "curly"],["cheveux epais",   "thick"],
+//     ["cheveux �pais",   "thick"],  ["cheveux fins",    "fine"], ["cheveux fin",     "fine"],
+//     ["cheveux ondul�",  "wavy"],   ["cheveux lisse",   "straight"],["cheveux raide","straight"],
 //     ["cheveux normal",  "normal"],
 //   ];
 //   let hairType: string | null = null;
@@ -100,7 +100,7 @@
 //     hairType = hairMatch ? (hairMatch[1] ?? hairMatch[2] ?? null) : null;
 //   }
 
-//   // Concerns � keyword list + French/Arabic variants
+//   // Concerns � keyword list + French/Arabic variants
 //   const CONCERNS = [
 //     "redness","acne","aging","dullness","pores","wrinkles",
 //     "sensitivity","dehydration","hyperpigmentation","dark spots","dark circles",
@@ -108,8 +108,8 @@
 //   ];
 //   const skinConcerns = CONCERNS.filter(k => lower.includes(k));
 
-//   // Clear concerns � "no concern", "no skin concern", "sans souci"
-//   const clearConcerns = /no\s+(skin\s+)?concern|sans\s+(souci|concern|probl�me)|aucune\s+pr�occupation|pas\s+de\s+(souci|probl�me)/i.test(msg);
+//   // Clear concerns � "no concern", "no skin concern", "sans souci"
+//   const clearConcerns = /no\s+(skin\s+)?concern|sans\s+(souci|concern|probl�me)|aucune\s+pr�occupation|pas\s+de\s+(souci|probl�me)/i.test(msg);
 
 //   return { skinType, hairType, skinConcerns, clearConcerns };
 // }
@@ -118,7 +118,7 @@
 //   // Fast path: Arabic unicode block
 //   if (/[\u0600-\u06FF\u0750-\u077F]/.test(msg)) return "Arabic";
 
-//   // Too short for trigrams � franc returns "und" (undetermined) on <10 chars
+//   // Too short for trigrams � franc returns "und" (undetermined) on <10 chars
 //   if (msg.trim().length < 10) {
 //     // Minimal keyword fallback only for ultra-short greetings
 //     if (/\b(bonjour|salut|merci|oui|non)\b/i.test(msg)) return "French";
@@ -193,8 +193,8 @@
 //     // English
 //     "\\b(order|orders|delivery|delivered|shipping|shipped|tracking|package|parcel|arrived|receipt|purchase|bought|status)\\b",
 //     // French
-//     "\\b(commande|commandes|livraison|livr�|exp�di�|suivi|colis|statut|achat|arriv�|re�u|exp�dition)\\b",
-//     // Arabic roots � ??? (order) | ????? (delivery) | ??? (shipping) | ???? (tracking) | ??? (arrived)
+//     "\\b(commande|commandes|livraison|livr�|exp�di�|suivi|colis|statut|achat|arriv�|re�u|exp�dition)\\b",
+//     // Arabic roots � ??? (order) | ????? (delivery) | ??? (shipping) | ???? (tracking) | ??? (arrived)
 //     "[\u0637\u0644\u0628]|[\u062a\u0633\u0644\u064a\u0645]|[\u0634\u062d\u0646]|[\u062a\u062a\u0628\u0639]|[\u0648\u0635\u0644]",
 //   ].join("|"),
 //   "i"
@@ -233,8 +233,8 @@
 //               `- language: "French", "Arabic", or "English"\n` +
 //               `- isGreeting: true only if the whole message is a greeting\n` +
 //               `- isOrderQuery: true if the user asks about order/delivery/shipping/tracking\n` +
-//               `- skinType: detected skin type, always in English: oily(gras/grasse), dry(sec/seche/s�che), combination(mixte), sensitive(sensible), normal(normale). null if not mentioned.\n` +
-//               `- hairType: detected hair type, always in English: oily(gras), dry(sec/seche/s�che), curly(boucl�/boucle/fris�), wavy(ondul�), straight(lisse), fine(fin), thick(epais/�pais), normal. null if not mentioned.\n` +
+//               `- skinType: detected skin type, always in English: oily(gras/grasse), dry(sec/seche/s�che), combination(mixte), sensitive(sensible), normal(normale). null if not mentioned.\n` +
+//               `- hairType: detected hair type, always in English: oily(gras), dry(sec/seche/s�che), curly(boucl�/boucle/fris�), wavy(ondul�), straight(lisse), fine(fin), thick(epais/�pais), normal. null if not mentioned.\n` +
 //               `- skinConcerns: array from [acne,redness,aging,dark spots,wrinkles,dullness,pores,sensitivity,dehydration,hyperpigmentation] or []\n` +
 //               `- clearConcerns: true if user explicitly says they have no concerns\n\n` +
 //               `Message: "${message.replace(/"/g, '\\"').slice(0, 400)}"\n\nJSON only.`,
@@ -646,11 +646,11 @@
 //         profileContext += `User skin type: ${effectiveSkin}. `;
 //       }
 
-//       // Regex is source of truth for extraction � fast, French-aware, deterministic
+//       // Regex is source of truth for extraction � fast, French-aware, deterministic
 //       const regexExtracted = extractMessageProfile(message);
 //       // ollamaAnalyze supplements for intent/language only
 //       const analysis = await ollamaAnalyze(sanitizeUserMessage(message));
-//       // Regex wins on skin/hair/concerns � AI fills gaps regex cannot cover
+//       // Regex wins on skin/hair/concerns � AI fills gaps regex cannot cover
 //       const extracted = {
 //         ...analysis,
 //         skinType:      regexExtracted.skinType     ?? analysis.skinType     ?? null,
@@ -692,12 +692,12 @@
 //         const concernsSuffixAr = effectiveConcerns.length ? ` ?? ${effectiveConcerns.join("? ")}` : "";
 
 //         const confirmMsg = msgLang === "French"
-//           ? `Juste pour confirmer � c'est pour vous ? Votre profil indique une peau ${effectiveSkin ?? "inconnue"}${concernsSuffixFr}. ` +
-//             `Souhaitez-vous mettre � jour votre profil (${changesSummary}), ou c'est pour quelqu'un d'autre ?`
+//           ? `Juste pour confirmer � c'est pour vous ? Votre profil indique une peau ${effectiveSkin ?? "inconnue"}${concernsSuffixFr}. ` +
+//             `Souhaitez-vous mettre � jour votre profil (${changesSummary}), ou c'est pour quelqu'un d'autre ?`
 //           : msgLang === "Arabic"
-//           ? `??????? ??? � ?? ??? ?? ???? ???? ?????? ????? ???? ${effectiveSkin ?? "??? ?????"}${concernsSuffixAr}. ` +
+//           ? `??????? ??? � ?? ??? ?? ???? ???? ?????? ????? ???? ${effectiveSkin ?? "??? ?????"}${concernsSuffixAr}. ` +
 //             `?? ???? ????? ???? ?????? (${changesSummary})? ?? ?? ??? ???? ????`
-//           : `Just to confirm � is this for you? Your profile shows ${effectiveSkin ?? "unknown"} skin${concernsSuffix}. ` +
+//           : `Just to confirm � is this for you? Your profile shows ${effectiveSkin ?? "unknown"} skin${concernsSuffix}. ` +
 //             `Would you like me to update your profile (${changesSummary}), or is this for someone else?`;
 
 //         await setPendingConfirmation(userId!, {
@@ -759,7 +759,7 @@
 
 //       let orderContext = "";
 
-//       // Extract order code by format only (ORD-XXXXX) � no language keywords needed
+//       // Extract order code by format only (ORD-XXXXX) � no language keywords needed
 
 //       const orderCodeMatch = message.match(/\b(ORD-[A-Z0-9][\w-]*)/i);
 //       const extractedOrderId = orderCodeMatch?.[1]?.toUpperCase() ?? null;
@@ -809,7 +809,7 @@
 //                   ? items
 //                       .map(
 //                         (i: any) =>
-//                           `${i.quantity ?? 1}� ${
+//                           `${i.quantity ?? 1}� ${
 //                             i.productName ?? i.name ?? i.productId ?? "item"
 //                           }`
 //                       )
@@ -854,7 +854,7 @@
 //                             : "?";
 //                           const from = h.fromStatus ?? "new";
 //                           const to = h.toStatus ?? "?";
-//                           const note = h.comment ? ` � ${sanitizeForPrompt(h.comment)}` : "";
+//                           const note = h.comment ? ` � ${sanitizeForPrompt(h.comment)}` : "";
 //                           const tracking = h.trackingNumber
 //                             ? ` (tracking: ${h.trackingNumber})`
 //                             : "";
@@ -865,7 +865,7 @@
 //                       orderContext += `\nStatus history:\n${trail}`;
 //                     }
 //                   } catch {
-//                     // history is optional � silently skip
+//                     // history is optional � silently skip
 //                   }
 //                 }
 //               }
@@ -875,7 +875,7 @@
 //               `\n[SYSTEM: Respond entirely in ${langLabel}. Order lookup failed. Tell the user to contact support.]`;
 //           }
  
-//         // -- Branch 3: order query but no code � list recent orders --------
+//         // -- Branch 3: order query but no code � list recent orders --------
 //         } else {
 //           try {
 //             const orderTable =
@@ -1243,7 +1243,7 @@ function sanitizeUserMessage(msg: string): string {
 function extractMessageProfile(msg: string) {
   const lower = msg.toLowerCase();
 
-  // Skin type � longer phrases first
+  // Skin type � longer phrases first
   const SKIN_TYPE_MAP: Array<[string, string]> = [
     ["peau grasse", "oily"], ["peau s\u00e8che", "dry"], ["peau seche", "dry"],
     ["peau mixte", "combination"], ["peau sensible", "sensitive"], ["peau normale", "normal"],
@@ -1257,7 +1257,7 @@ function extractMessageProfile(msg: string) {
     if (lower.includes(term)) { skinType = val; break; }
   }
 
-  // Hair type � French longer phrases first, then English
+  // Hair type � French longer phrases first, then English
   const HAIR_FR_MAP: Array<[string, string]> = [
     ["cheveux gras", "oily"],    ["cheveux sec", "dry"],     ["cheveux secs", "dry"],
     ["cheveux seche", "dry"],    ["cheveux boucl\u00e9", "curly"], ["cheveux boucle", "curly"],
@@ -1290,7 +1290,7 @@ function extractMessageProfile(msg: string) {
   return { skinType, hairType, skinConcerns, clearConcerns };
 }
 
-// Scoring-based � immune to shared beauty vocabulary (type, serum, masque, etc.)
+// Scoring-based � immune to shared beauty vocabulary (type, serum, masque, etc.)
 function detectLanguage(msg: string): "French" | "Arabic" | "English" {
   if (/[\u0600-\u06FF\u0750-\u077F]/.test(msg)) return "Arabic";
 
@@ -1333,7 +1333,7 @@ function detectLanguage(msg: string): "French" | "Arabic" | "English" {
   // Accented characters are a strong French signal
   if (/[\u00e0\u00e2\u00e4\u00e9\u00e8\u00ea\u00eb\u00ee\u00ef\u00f4\u00f6\u00f9\u00fb\u00fc\u00e7]/.test(msg)) fr += 3;
 
-  // Default English � only flip when French clearly wins
+  // Default English � only flip when French clearly wins
   return fr > en ? "French" : "English";
 }
 
@@ -1427,8 +1427,8 @@ async function ollamaAnalyze(message: string): Promise<{
               `- language: "French", "Arabic", or "English"\n` +
               `- isGreeting: true only if the whole message is a greeting\n` +
               `- isOrderQuery: true if the user asks about order/delivery/shipping/tracking\n` +
-              `- skinType: in English � oily(gras/grasse), dry(sec/seche/s\u00e8che), combination(mixte), sensitive(sensible), normal. null if not mentioned.\n` +
-              `- hairType: in English � oily(gras), dry(sec/seche/s\u00e8che), curly(boucl\u00e9/fris\u00e9), wavy(ondul\u00e9), straight(lisse), fine(fin), thick(epais/\u00e9pais), normal. null if not mentioned.\n` +
+              `- skinType: in English � oily(gras/grasse), dry(sec/seche/s\u00e8che), combination(mixte), sensitive(sensible), normal. null if not mentioned.\n` +
+              `- hairType: in English � oily(gras), dry(sec/seche/s\u00e8che), curly(boucl\u00e9/fris\u00e9), wavy(ondul\u00e9), straight(lisse), fine(fin), thick(epais/\u00e9pais), normal. null if not mentioned.\n` +
               `- skinConcerns: array from [acne,redness,aging,dark spots,wrinkles,dullness,pores,sensitivity,dehydration,hyperpigmentation] or []\n` +
               `- clearConcerns: true if user explicitly says they have no concerns\n\n` +
               `Message: "${message.replace(/"/g, '\\"').slice(0, 400)}"\n\nJSON only.`,
@@ -1539,10 +1539,10 @@ export class ChatController {
     try {
       const userId = currentUser?.id ?? null;
 
-      // Detect language once � used everywhere
+      // Detect language once � used everywhere
       const detectedLang = detectLanguage(message);
 
-      // Language primer tokens � force small model to start in the right language
+      // Language primer tokens � force small model to start in the right language
       const PRIMERS: Record<string, string> = {
         French:  "Bien s\u00fbr\u00a0! ",
         Arabic:  "\u0628\u0627\u0644\u0637\u0628\u0639! ",
@@ -1679,7 +1679,7 @@ export class ChatController {
             return res;
           }
 
-          // -- OTHER: unclear answer � gently re-ask ------------------------
+          // -- OTHER: unclear answer � gently re-ask ------------------------
           // fall through with a note injected into the system prompt
         }
       }
@@ -1804,7 +1804,7 @@ export class ChatController {
         return res;
       }
 
-      // No mismatch � persist extracted types for next turn
+      // No mismatch � persist extracted types for next turn
       if (extracted.skinType || extracted.hairType || extracted.skinConcerns?.length) {
         await redis.setex(skinCacheKey, SKIN_CACHE_TTL, JSON.stringify({
           type: effectiveSkin, hair: effectiveHair, concerns: effectiveConcerns,
@@ -1945,34 +1945,79 @@ export class ChatController {
       }
 
       // -- System prompt -----------------------------------------------------
-      let profileContext = "";
-      if (effectiveSkin) profileContext += `User skin type: ${effectiveSkin}. `;
-      if (effectiveHair) profileContext += `Hair type: ${effectiveHair}. `;
+      // (1) Imperative + localized profile block so the model does NOT re-ask
       const displayConcerns = effectiveConcerns.length ? effectiveConcerns : (extracted.skinConcerns ?? []);
-      if (displayConcerns.length) profileContext += `Skin concerns: ${displayConcerns.join(", ")}.`;
+      const profileLines: string[] = [];
+      if (effectiveSkin || effectiveHair || displayConcerns.length) {
+        if (detectedLang === "French") {
+          profileLines.push(`PROFIL UTILISATEUR (déjà connu — NE JAMAIS redemander):`);
+          if (effectiveSkin)          profileLines.push(`- Type de peau: ${effectiveSkin}`);
+          if (effectiveHair)          profileLines.push(`- Type de cheveux: ${effectiveHair}`);
+          if (displayConcerns.length) profileLines.push(`- Préoccupations: ${displayConcerns.join(", ")}`);
+          profileLines.push(`Utilise ces données directement. Ne demande aucune confirmation.`);
+        } else if (detectedLang === "Arabic") {
+          profileLines.push(`ملف المستخدم (معروف مسبقا — لا تسأل مرة أخرى أبدا):`);
+          if (effectiveSkin)          profileLines.push(`- نوع البشرة: ${effectiveSkin}`);
+          if (effectiveHair)          profileLines.push(`- نوع الشعر: ${effectiveHair}`);
+          if (displayConcerns.length) profileLines.push(`- المخاوف: ${displayConcerns.join("، ")}`);
+          profileLines.push(`استخدم هذه البيانات مباشرة. لا تطلب أي تأكيد.`);
+        } else {
+          profileLines.push(`USER PROFILE (already known — NEVER ask again):`);
+          if (effectiveSkin)          profileLines.push(`- Skin type: ${effectiveSkin}`);
+          if (effectiveHair)          profileLines.push(`- Hair type: ${effectiveHair}`);
+          if (displayConcerns.length) profileLines.push(`- Concerns: ${displayConcerns.join(", ")}`);
+          profileLines.push(`Use this data directly. Do not ask for confirmation.`);
+        }
+      }
+      const profileContext = profileLines.join("\n");
+
+      // (2) Language rule written IN the target language — LLMs follow the
+      //     language of the instruction more than the content of it.
+      const langRule =
+        detectedLang === "French"
+          ? `RÈGLE DE LANGUE: Réponds UNIQUEMENT en français. Chaque mot doit être en français. Aucun mot anglais.`
+          : detectedLang === "Arabic"
+          ? `قاعدة اللغة: أجب فقط بالعربية. كل كلمة يجب أن تكون بالعربية. لا توجد كلمات إنجليزية.`
+          : `LANGUAGE RULE: Respond ONLY in English. Every word must be English.`;
+
+      const finalOverride =
+        detectedLang === "French"
+          ? `RAPPEL FINAL: toute la réponse doit être en français.`
+          : detectedLang === "Arabic"
+          ? `تذكير أخير: يجب أن تكون الإجابة بالكامل بالعربية.`
+          : `FINAL REMINDER: entire response must be in English.`;
 
       const systemPrompt = [
         BASE_SYSTEM_PROMPT,
-        `LANGUAGE RULE: The user is writing in ${detectedLang}. You MUST respond ENTIRELY in ${detectedLang}. Every word.`,
+        langRule,
         profileContext,
         orderContext,
         productContext,
-        `FINAL OVERRIDE: Your entire response must be in ${detectedLang}.`,
+        finalOverride,
       ].filter(Boolean).join("\n");
 
+      // (3) Put the language reminder AFTER the user message — last tokens
+      //     dominate the model's first-token choice.
       const ollamaMessages = [
         { role: "system",    content: systemPrompt },
         ...historyMessages,
-        { role: "user",      content: `[RESPOND IN ${detectedLang.toUpperCase()} ONLY] ${sanitizeUserMessage(message)}` },
+        { role: "user",      content: `${sanitizeUserMessage(message)}\n\n[${finalOverride}]` },
         ...(primer ? [{ role: "assistant", content: primer }] : []),
       ];
 
       console.log("[CHAT] Calling Ollama");
 
+      // (4) Lower temperature + repeat penalty → less language drift
       const fullReply = await streamOllama({
         model: OLLAMA_MODEL,
         messages: ollamaMessages,
-        options: { num_ctx: 2048, num_predict: 400 },
+        options: {
+          num_ctx: 2048,
+          num_predict: 400,
+          temperature: 0.4,
+          top_p: 0.85,
+          repeat_penalty: 1.15,
+        },
       }, sseChunk, clientGone, STREAM_TIMEOUT_MS);
 
       // -- Persist -----------------------------------------------------------

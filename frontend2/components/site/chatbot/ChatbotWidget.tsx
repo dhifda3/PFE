@@ -199,7 +199,7 @@ export default function ChatbotWidget() {
   return (
     <>
       {/* ── Scoped styles using the site's CSS variables ───────────────────── */}
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .cw-panel {
           position: fixed;
           bottom: 88px; right: 24px; z-index: 50;
@@ -345,7 +345,7 @@ export default function ChatbotWidget() {
           transition: background 0.3s;
         }
         .cw-fab.open { background: var(--cyan); }
-      `}</style>
+      ` }} />
 
       {/* ── Panel ────────────────────────────────────────────────────────── */}
       {open && (

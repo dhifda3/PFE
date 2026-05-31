@@ -21,6 +21,8 @@ export const auth = betterAuth({
     },
     trustedOrigins: [
         "http://localhost:3001",
+        "http://localhost:3002",
+        process.env.FRONTEND_URL ?? "http://localhost:3002",
     ],
     plugins: [
         bearer(),
@@ -29,6 +31,13 @@ export const auth = betterAuth({
         // ── Email OTP (primary auth for all users) ─────────────────────────
         emailOTP({
             async sendVerificationOTP({ email, otp }) {
+                // Dev shortcut — print OTP to backend console instead of sending email
+                if (process.env.BYPASS_OTP === 'true' || !process.env.SMTP_USER) {
+                    console.log(`\n========================================`);
+                    console.log(`[DEV OTP] email=${email}  code=${otp}`);
+                    console.log(`========================================\n`);
+                    return;
+                }
                 await emailService.sendOtp(email, otp, 10);
             },
             otpLength: 6,

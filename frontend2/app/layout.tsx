@@ -34,7 +34,7 @@ export default function RootLayout({
       The ThemeProvider useEffect will immediately correct it
       to whatever the user had saved, before the first paint.
     */
-    <html lang="en" data-theme="dark">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
       <body className={`${display.variable} ${body.variable} font-body`}>
         <ThemeProvider>
           {children}
