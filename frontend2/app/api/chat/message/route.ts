@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
+export const runtime = "edge";          // 30s timeout on Hobby instead of 10s
+export const maxDuration = 30;
+export const dynamic = "force-dynamic";
+
 const EXPRESS_URL = (process.env.EXPRESS_API_URL || "http://localhost:3000").replace(/\/$/, "");
 const MAX_MESSAGE_LENGTH = 500;
 const SESSION_ID_RE = /^[a-zA-Z0-9_\-]{1,128}$/;
