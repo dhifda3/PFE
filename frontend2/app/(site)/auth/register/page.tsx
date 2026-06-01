@@ -13,7 +13,7 @@ import { useTheme } from "@/components/ui/ThemeContext";
 const schema = z.object({
   name:     z.string().min(2, "Name must be at least 2 characters"),
   email:    z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
 });
 type FormData = z.infer<typeof schema>;
 
@@ -115,7 +115,8 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       await authApi.register(data);
-      router.push("/auth/login?registered=true");
+      // Better-auth returns a session on sign-up — user is already logged in.
+      router.push("/");
     } catch (err: any) {
       setError(err?.response?.data?.message || "Registration failed");
     } finally {
