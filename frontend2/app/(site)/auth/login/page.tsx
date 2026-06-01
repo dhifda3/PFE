@@ -148,16 +148,9 @@ export default function LoginPage() {
   const onSubmit = async (data: FormData) => {
     setError("");
     try {
+      // OTP step disabled — straight password login.
       await login(data.email, data.password);
-      await logout();
-      pendingEmail.current    = data.email;
-      pendingPassword.current = data.password;
-      await api.post("/api/auth/email-otp/send-verification-otp", {
-        email: data.email,
-        type: "sign-in",
-      });
-      setAttempts(0);
-      setStep("otp");
+      router.push("/");
     } catch {
       setError("Invalid email or password. Please try again.");
     }
