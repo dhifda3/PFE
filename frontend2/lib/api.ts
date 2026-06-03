@@ -64,6 +64,18 @@ export const reviewsApi = {
   delete: (id: string) => api.delete(`/api/reviews/${id}`),
 };
 
+// Users — profile management
+export const usersApi = {
+  me: () => api.get("/api/v1/users/me"),
+  updateMe: (data: {
+    name?: string;
+    skinType?: string | null;
+    hairType?: string | null;
+    skinConcerns?: string | null;
+    discoverySource?: string | null;
+  }) => api.put("/api/v1/users/me", data),
+};
+
 // Auth
 export const authApi = {
   login: (email: string, password: string) =>
